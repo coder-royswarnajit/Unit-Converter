@@ -4,7 +4,7 @@ from math import *
 
 root = Tk()
 root.title("UNIT CONVERTOR")
-root.geometry("400x600")
+root.geometry("400x800")
 
 
 def length_convert():
@@ -62,6 +62,27 @@ def weight_convert():
     result = x * factors[from_]/factors[to_]
     result_weight.config(text=f"{x} {from_} = {result:} {to_}")
 
+
+def time_convert():
+    x = float(time_entry.get())
+    from_ = from_time_var.get()
+    to_ = to_time_var.get()
+    factors = {
+            "Second":1.00,
+            "Minute":60.00,
+            "Hour":3600.00,
+            "Nanosecond":pow(10,9),
+            "Microsecond":pow(10,6),
+            "Millisecond":1000.00,
+            "Day":1.157 * pow(10,-5),
+            "Week":1.653 * pow(10,-6),
+            "Month":3.805 * pow(10,-7),
+            "Year":3.171 * pow(10,-8)
+    }
+    result = x * factors[from_]/factors[to_]
+    result_time.config(text=f"{x} {from_} = {result:} {to_}")
+    
+    
 #LENGTH CHANGE
 
 length = Label(root,text="CHANGE LENGTH").pack()
@@ -118,6 +139,25 @@ to_weight_menu = OptionMenu(root, to_weight_var,"Killogram","Ounces","Pound","Gr
 weight_btn = Button(root,text="CONVERT",command=weight_convert).pack(pady=20)
 result_weight = Label(text="")
 result_weight.pack()
+
+#TIME CHANGE
+
+time = Label(root, text="CHANGE TIME").pack()
+
+time_entry = Entry(root)
+time_entry.pack()
+
+from_time_var = StringVar()
+from_time_var.set("Second")
+from_time_menu = OptionMenu(root, from_time_var,"Hour","Minute","Second","Nanosecond","Microsecond","Millisecond","Day","Week","Month","Year").pack()
+
+to_time_var = StringVar()
+to_time_var.set("Hour")
+to_time_menu = OptionMenu(root, to_time_var,"Hour","Minute","Second","Nanosecond","Microsecond","Millisecond","Day","Week","Month","Year").pack()
+
+time_btn = Button(root,text="CONVERT",command=time_convert).pack(pady=20)
+result_time = Label(text="")
+result_time.pack()
 
 
 
